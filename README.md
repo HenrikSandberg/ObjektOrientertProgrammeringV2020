@@ -74,18 +74,25 @@ Når man lager en klasse så lager man streng tatt ikke lenger funksjoner, men h
 
 Metoder I Java bygges på litt forskjellige måter avhengig av hva du ønsker å oppnå ved å bruke dem. Det som er veldig forskjellige fra JavaScript er at dette er viktig å deklarere i signaturen til en metode. I stede for å legge ut i en lang tekst her så er det bedre at jeg beskriver det med en metode eller to:
 ```java
-// Signaturen her sier at dette er en offentlig metode som kan bli kalt på utenfor klassen. Den skal ikke returnere noe. Den tar imot et tall og endrer et annet tall unefor metoden til dette nye tallet. Dette er en meget klassisk setter metode som brukes til stadighet i Java.
+// Signaturen her sier at dette er en offentlig metode som kan
+// bli kalt på utenfor klassen. Den skal ikke returnere noe. 
+// Den tar imot et tall og endrer et annet tall unefor metoden til dette nye tallet. 
+// Dette er en meget klassisk setter metode som brukes til stadighet i Java.
 public void setTall(int nyttTall){
 	tall = nyttTall;
 }
 
-// Signaturen her sier at dette er en offentlig metode som kan bli kalt på utenfor klassen. Den skal returnere en boolean (true, false). Den heter samenlikn og den krever to parametere nemlig to inter a og b.
+// Signaturen her sier at dette er en offentlig metode som kan bli kalt på utenfor klassen. 
+// Den skal returnere en boolean (true, false). 
+// Den heter samenlikn og den krever to parametere nemlig to inter a og b.
 public boolean samenlikn(int a, int b) { 
 	boolean resultat = a < b;
 	return resultat;
 }
 
-// Denne metoden er privat for klassen og kan bare bli kalt internt. Det vil si, kun andre metoder inne i samme klasse vil kunne kalle på denne metoden. Det virker kanskej litt fjernt nå, men dette er en veldig vanslig ting å gjøre i Java prigrammering.
+// Denne metoden er privat for klassen og kan bare bli kalt internt. 
+// Det vil si, kun andre metoder inne i samme klasse vil kunne kalle på denne metoden. 
+// Det virker kanskej litt fjernt nå, men dette er en veldig vanslig ting å gjøre i Java prigrammering.
 private void reset(){
 	poeng = 0;
 	spiller = null;
