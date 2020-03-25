@@ -102,7 +102,7 @@ Slik som i JavaScript så kan altså metoder returnere verdier, men det må sies
 ## Abstrakte klasser
 Abstrakte klasser er klasser som det ikke kan lages en instans av. Det vil si du kan aldri lage en spesifikt utgave av dem. Så hvorfor i alle dager har vi dem da, spør du kanskje? Vel, de er veldig smarte å bruke dersom det er en del felles nevnere inne i koden din. La oss si at du lager et du lager IMDB for TV programmer. I stede for å lage en klasse for skuespiller, regissør, produsent, statist, osv. med alle variabler så kan det være smart å flytte alle felles nevnere som navn, alder, bilde, osv til en super klasse som heter for eksempel person. Denne klassen kan da inneholde alle felles nevnere for alle de andre klassene. Men du vil jo helst ikke ha en variant av denne klassen i databasen din. Derfor burde du gjøre denne klassen abstrakt. Abstrakte klasser fungerer helt som en vanlig klasse annet annet at du ikke kan lage en konkret utgave av den klassen. 
 
-```
+```java
 public abstract class Person {
 	String navn;
 	Person(String navn) {
