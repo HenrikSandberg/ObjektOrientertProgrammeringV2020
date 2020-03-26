@@ -128,3 +128,5 @@ Person nils = new Skuspiller("Nils"); // Dette er lov
 Skuspiller harald = new Skuspiller("Harald"); // Dette er lov
 
 ```
+
+Det er ikke bare variabler som trenger å være felles, det kan også være metoder. De er helt like andre super klasser. 
