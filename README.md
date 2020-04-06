@@ -1,6 +1,10 @@
 # Klassekode2020
  Dette er kode fra rep forelesninger holdt våren 2020.
 
+## Oppgaver
+Her er noen oppgaver dere kan gjøre dersom dere ønsker å øve mer Java.
+[\[Oppgaver Inf1010] http://folk.uio.no/inf1010/v17/oppgaver/ ]()
+
 ## Objektorientert programmering
 En fornuftig tanke å ta med seg når man tenker objektorientert programmering er at man tenker at man samler ting som har noe med hverandre å gjøre inn i en engen samling. Denne samlingen for et objekt eller klasse i Java. Dette er også hovedtanken som rår igjennom hele språket. I fjor så lærte vi at JavaScript leser kode fra topp til bunn, men det er ikke tilfellet når man starter et Java program. For når vi skriver et Java terminal program så starter koden med å lete etter metoden `public static void main(String[] args)`. Dette er den offisielle starteren på alle terminal programmer i Java. Herifra kan koden hoppe fra klasse fil til klasse fil og mellom forskjellige funksjoner for å eksekvere forskjellige oppgaver. 
 
@@ -130,3 +134,4 @@ Skuspiller harald = new Skuspiller("Harald"); // Dette er lov
 ```
 
 Det er ikke bare variabler som trenger å være felles, det kan også være metoder. De er helt like andre super klasser. 
+
