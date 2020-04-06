@@ -226,5 +226,162 @@ public class Løper extends Brikke {
 ```
 
 Over har jeg skrevet et tenkt scenario hvor jeg liksom lager et sjakk program. Vi vet alle at alle sjakk brikker forholder seg til samme regler. De kan bare flyttes når det er din tur, du kan bare flytte en, de er enten sorte eller hvite og de har en assosiert poengsum som sier noe om hvem som er mer verdifull å ta ut av spillet over en annen brikke. Sjakk er ganske komplisert og forskjellig i implementasjonen, men strukturen for hver enkelt brikke vil være identisk. Det vil derfor være gunstig å ha en felles abstrakt brikke som alle klasser arver av. Samtidig ønsker vi aldri å ha en utgave av brikke på sjakkbrettet vårt fordi en generisk sjakkbrikke ikke eksisterer. Det eneste som da trenger å være forskjellig kan bli handtert i hver enkelt subklasse altså konge, dronning, løper, osv. 
-![Abstrakt klasse arv]()[ abstrakt_arv]()
 
+![Arv fra abrstrakt klasse][image-1]
+Dette er et enkelt hierarki. Alle klasser har her felles nevneren brikke i toppen og det er så komplisert dette hierarkiet trenger å være. Men hva om vi lager et litt mer komplisert system. 
+
+### Interface er ikke en klasse
+Et interface er ikke som en abstrakt klasse fordi den er uavhengig av arve hierarkier. Den bryr seg ikke om hva annet klassen som implementerer den holder på med, så lenge den så lenge den har en «lovlig» implementasjon av de metode signaturene interface krever. La oss si at vi håndterer hundrevis av databaser, og i alle databaser er det standard å implementere et sett med instruksjoner de såkalte CRUD operasjonene (Create, Read, Update & Delete). Hva som er i databasene og hvor de arver fra er fullstendig irrelevant så lenge klassen som implementerer dette interface at en implementasjon av disse fire funksjonene.
+
+```java
+
+public interface API{
+	public Object create();
+	public Object read(int plass);
+	public boolean update(int plass);
+	public void delete(int plass);
+}
+
+```
+
+Dette gir ikke helt mening uten og gjøre denne generisk, men vær med på leken akkurat nå. Som du ser i interface over så inneholder den fire signaturer på metoder den krever at et objekt må implementere. Hvordan disse implementeres er opp til hver enkelt klasse/objekt.
+```
+public class HundeDatabase implements API {
+	ArrayList<Hund> hundeListe = new ArrayList<>();
+
+	public Object create(){
+		Scanner skanner = new Scanner(System.in);
+		System.out.println("Hva heter hunden?")
+		String navn = skanner.nextLine();
+		Hund nyHund = new Hund(navn);
+		hundeListe.add(nyHund);
+	}
+
+	public Object read(int plass){
+		Hund lestHund = hundeListe.get(plass);
+		return lestHund;
+	}
+
+	public boolean update(int plass){
+		Scanner skanner = new Scanner(System.in);
+		System.out.println("Hva er hundes nye navn?")
+		String navn = skanner.nextLine();
+		
+		hundeListe.set(plass, new Hund(navn);
+		return true;
+	}
+
+	public void delete(int plass){
+		hundeListe.remove(plass);
+	}
+}
+
+public class StudentDatabase implements API {
+	ArrayList<Student> studentListe = new ArrayList<>();
+	
+	public Object create(){
+		Scanner skanner = new Scanner(System.in);
+		System.out.println("Hva heter studenten?")
+		String navn = skanner.nextLine();
+
+		Student nyStudent = new Student(navn);
+		studentListe.add(nyStudent);
+	}
+
+	public Object read(int plass){
+		Student lestStudent = studentListe.get(plass);
+		return lestStudent;
+	}
+
+	public boolean update(int plass){
+		Scanner skanner = new Scanner(System.in);
+		System.out.println("Hva skal studentens navn endres til?")
+		String navn = skanner.nextLine();
+		
+		Student endretStudent = studentListe.get(plass);
+		endretStudent.endreNavn(navn);
+
+		studentListe.set(plass, endretStudent);
+		return true;
+	}
+
+	public void delete(int plass){
+		studentListe.remove(plass);
+	}
+}
+```
+
+Som du kan se av de to eksemplene over så inneholder listene der helt forskjellige objekter/klasser som arver fra helt forskjellige superklassen, men begge klassene har implementert interface API og er med det nødt til å implementere de frie metodene med samme signatur. Objekter/klasser som implementerer de samme interfacene kan bli lagt inn i lister på lik linje som klasser som har samme super klasse.
+
+```java
+//... Betyr at her ville det vært kode dersom dette var et ordentlig eksempel. 
+// Den koden er ikke viktig for dette eksempelt
+
+public abstract class Dyr {...}
+public abstract class Fugle extends Dyr {...}
+public abstract class Pattedyr extends Dyr {...}
+public class Gris extends Pattedyr {...}
+
+public abstract class Fisk extends Dyr {...}
+public class Abbor extends Fisk {...}
+
+public abstract class Amfibie extends Dyr {...}
+
+public interface Rovdyr {
+	public boolean spiserDen(Dyr d);
+}
+
+public class Ulv extends Pattery implements Rovdyr {
+	...
+	
+	public boolean spiserDen(Dyr d) {
+		if (d instanceof Fugle || d instanceof Fisk || d instanceof Pattedyr && d !instanceof Ulv) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
+
+public class Ørn extends Fugle implements Rovdyr {
+	...
+	
+	public boolean spiserDen(Dyr d) {
+		if (d instanceof Fugle || d instanceof Fisk) {
+			return true;
+		} else {
+			return false;
+		}
+	}	
+}
+
+public class Main {
+	public static void main(String[] args){
+		ArrayList<Rovdyr> rovdyrliste = new ArrayList<>();
+		
+		rovdyrliste.add(new Ulv());
+		rovdyrliste.add(new Ørn());
+
+		for (Rovdyr dyr : rovdyrliste) {
+			if (dyr.spiserDen(new Gris())){
+				System.out.println(dyr.toString() + " spsier Gris");
+			} else {
+				System.out.println(dyr.toString() + " spsier Gris");
+			}
+		}
+		
+	}
+}
+```
+
+Her kan vi se et litt mer komplekst hierarki hvor to forskjellige grener i arve treet har implementert det samme interfacet. Det gjør at de kan legges i samme liste og de kan kalle på den samme funksjonen UTEN å sjekke `instanceof`. Dette er fordi vi har en garanti at to klasser som har implementert det samme interfacet har den samme funksjonen. 
+
+![][image-2]
+
+[image-1]():	img/abstrakt.jpeg «Abstract»
+[image-2]():	img/interface.jpeg «Interface»
+
+
+
+[image-1]:	image-1
+[image-2]:	image-2
