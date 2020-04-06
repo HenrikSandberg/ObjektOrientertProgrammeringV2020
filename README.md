@@ -134,3 +134,97 @@ Skuspiller harald = new Skuspiller("Harald"); // Dette er lov
 ```
 
 Det er ikke bare variabler som trenger å være felles, det kan også være metoder. De er helt like andre super klasser. 
+
+## Interfacer
+Ofte i Java så skulle man ønske at man kunne arve fra mer enn en klasse, men det er dessverre ikke mulig. En klasse kan bare ha en superklasse over seg. En super klasse kan ha mange barn (subklasser), men det går da altså ikke den andre veien. 
+Dette har da blitt løst med interfacer i stede. Et interface er en klasse uten en eneste implementasjon. Det vil si, den inneholder kun metode signaturer, og ingen implementasjon av metoden. Det er da opp til hver enkelt klasse som bruker interface hvordan de ønsker å implementere det. 
+
+### Hva er en metode signatur?
+En metode signatur er en unik identifikator for en metode som sier hvem som har tilgang til den, hva den returnerer og hvilke parametere den trenger. Slik som eksemplene under:
+
+```java
+public boolean erAStørreEnnB(int a, int b);
+
+public void gjørNoe();
+
+public int øktallet(int a);
+```
+
+Alle disse tre er eksempler på signaturer. De varierer med hva de returnerer og hvilke parametere de har, men ingen av dem har noen implemntasjon.
+
+### Hva er en implementasjon
+En implementasjon er hva en metode skal gjøre når den blir bett om å gjøre noe. Hvis vi tar utgangspunkt i de tre over så kunne inplemntasjonene dere sett slik ut:
+```java
+{
+	return a > b;
+}
+
+{
+	System.out.println("Nå er noe gjort");
+}
+
+{
+	return a + 1;
+}
+```
+
+Alle disse tre kunne vært implementasjoner av de tre forrige signaturene, men de må ikke være sånn. Jeg tipper du kan komme opp med andre implementasjoner og det hadde vært helt greit! Det er en av styrkene til å bruke interfacer i programmering.
+
+## Hva er forskjellen mellom et Interface og en Abstrakt klasse
+Dette er kanskje det mest vanlige spørsmålet jeg får så jeg tenker at jeg skrive ned mine tanker om hva som er forskjellige mellom dem her og hva de kan brukes til på forskjellige måter. 
+
+### Abstrakt klasse er en klasse
+Dette sier seg litt selv, men jeg synes allikevel at det er viktig å påpeke. En abstrakt klasse er 100% lik en vanlig klasse for uten om en ting, du kan aldri lage en instans av dem.
+
+```java
+public abstract class MinKlasse {.....}
+
+MinKlasse navn = new MinKlasse(); //Delen etter likhetstegnet er ikke lov.
+
+```
+
+Men det betyr ikke at du ikke kan lage referanser eller lister av denne klassen. Det er lov! 
+
+```java
+public class ArverFraMinKlasse extends MinKlasse {.....}
+
+ArrayList<MinKlasse> liste = new ArrayList<>(); // Dette er lov
+MinKlasse k = new ArverFraMinKlasse(); //Dette er lov
+
+liste.add(k); // Dette er lov
+
+```
+
+
+La oss si at du har tre klasser som er ganske like, men som har noen forskjeller. Dette er veldig typisk i programmering. I dette tilfellet er det fornuftig å skille dem på hva som gjør dem unike, men beholde det som er felles i en overordnet klasse, en super klasse. Men du vil kanskje da ikke at denne super klassen skal kunne få lov til å bli laget en kopi av:
+
+```java
+//For eksempel hvis du lager et sjakk spill så vil du at alle brikkene skal ha samme metoder og variabler, men implemntasjonen vil da kanskje være forskjellig fra hver enkelt brikke.
+
+public abstract class Brikke {
+	protected int poeng;
+	protected boolean erHvit;
+	
+	public Brikke(int poeng, boolean erHvit){....}
+
+	public void flyttBrikke(int gammelPlassering, int nyPlassering){......}
+}
+
+public class Konge extends Brikke {
+	public Konge(int poeng, boolean erHvit){....}
+
+	@Override
+	public void flyttBrikke(int gammelPlassering, int nyPlassering){......}
+}
+
+public class Løper extends Brikke {
+	public Løper(int poeng, boolean erHvit){....}
+
+	@Override
+	public void flyttBrikke(int gammelPlassering, int nyPlassering){......}
+}
+```
+
+Over har jeg skrevet et tenkt scenario hvor jeg liksom lager et sjakk program. Vi vet alle at alle sjakk brikker forholder seg til samme regler. De kan bare flyttes når det er din tur, du kan bare flytte en, de er enten sorte eller hvite og de har en assosiert poengsum som sier noe om hvem som er mer verdifull å ta ut av spillet over en annen brikke. Sjakk er ganske komplisert og forskjellig i implementasjonen, men strukturen for hver enkelt brikke vil være identisk. Det vil derfor være gunstig å ha en felles abstrakt brikke som alle klasser arver av. Samtidig ønsker vi aldri å ha en utgave av brikke på sjakkbrettet vårt fordi en generisk sjakkbrikke ikke eksisterer. Det eneste som da trenger å være forskjellig kan bli handtert i hver enkelt subklasse altså konge, dronning, løper, osv. 
+![Abstrakt klasse arv]()[ abstrakt_arv]()
+
