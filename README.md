@@ -376,12 +376,7 @@ public class Main {
 
 Her kan vi se et litt mer komplekst hierarki hvor to forskjellige grener i arve treet har implementert det samme interfacet. Det gjør at de kan legges i samme liste og de kan kalle på den samme funksjonen UTEN å sjekke `instanceof`. Dette er fordi vi har en garanti at to klasser som har implementert det samme interfacet har den samme funksjonen. 
 
-![][image-2]
+![Interface][image-2]
 
-[image-1]():	img/abstrakt.jpeg «Abstract»
-[image-2]():	img/interface.jpeg «Interface»
-
-
-
-[image-1]:	image-1
-[image-2]:	image-2
+[image-1]: img/abstrakt.jpeg "Abstract"
+[image-2]: img/interface.jpeg "Interface"
